@@ -958,9 +958,13 @@
 const isCodespaces = window.location.hostname.includes('github.dev');
 
 const getServiceUrl = (port) => {
-  // In Codespaces, use localhost since we're accessing from within the same environment
-  // The browser will connect through the forwarded port
-  return `http://localhost:${port}`;
+  const hostname = window.location.hostname;
+  if (hostname.includes('github.dev') || hostname.includes('githubpreview.dev')) {
+    const parts = hostname.split('-');
+    parts[parts.length - 1] = port + '.app.github.dev';
+    return 'https://' + parts.join('-');
+  }
+  return 'http://localhost:' + port;
 };
 
 const SERVICES = [
