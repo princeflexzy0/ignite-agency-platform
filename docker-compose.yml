@@ -1,5 +1,4 @@
 version: '3.8'
-
 services:
   postgres:
     image: postgres:15
@@ -11,6 +10,23 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  client-api:
+    build: ./client-api
+    ports:
+      - "5001:5001"
+    environment:
+      - CLIENT_API_PORT=5001
+      - JWT_SECRET=${JWT_SECRET}
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=ignite_user
+      - DB_PASSWORD=ignite_pass
+      - DB_NAME=ignite_platform
+    depends_on:
+      - postgres
+    volumes:
+      - ./client-api:/app
 
   job-acquisition:
     build: ./job-acquisition
