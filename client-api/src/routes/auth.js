@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const db = require('../config/database');
+const supabase = require('../config/database');
 const { JWT_SECRET } = require('../middleware/auth');
 
 const router = express.Router();
@@ -13,14 +13,17 @@ router.post('/register', async (req, res) => {
     
     const hashedPassword = await bcrypt.hash(password, 10);
     
-    const result = await db.query(
-      'INSERT INTO users (name, email, password, company, phone) VALUES ($1, $2, $3, $4, $5) RETURNING id, name, email, company, phone',
-      [name, email, hashedPassword, company, phone]
-    );
+    const { data, error } = await supabase
+      .from('users')
+      .insert([{ name, email, password: hashedPassword, company, phone }])
+      .select()
+      .single();
     
-    const token = jwt.sign({ id: result.rows[0].id, email, role: 'user' }, JWT_SECRET);
+    if (error) throw error;
     
-    res.json({ token, user: result.rows[0] });
+    const token = jwt.sign({ id: data.id, email, role: 'user' }, JWT_SECRET);
+    
+    res.json({ token, user: { id: data.id, name: data.name, email: data.email, company: data.company, phone: data.phone } });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -31,13 +34,16 @@ router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     
-    const result = await db.query('SELECT * FROM users WHERE email = $1', [email]);
+    const { data: user, error } = await supabase
+      .from('users')
+      .select('*')
+      .eq('email', email)
+      .single();
     
-    if (result.rows.length === 0) {
+    if (error || !user) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
     
-    const user = result.rows[0];
     const validPassword = await bcrypt.compare(password, user.password);
     
     if (!validPassword) {
