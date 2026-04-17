@@ -28,7 +28,7 @@ app.post('/linkedin-post', (req, res) => {
 
 app.post('/auto-post-success', (req, res) => {
   const { vaName, projectTitle, amount } = req.body;
-  const content = `🎉 Success Story! Our VA ${vaName || 'team member'} just completed "${projectTitle || 'a project'}" earning $${amount || '500'}! #VirtualAssistant #IgniteAgency #Success`;
+  const content = `🎉 Success Story! Our VA ${vaName || 'team member'} just completed "${projectTitle || 'a project'}" earning $${amount || '500'}! #VirtualAssistant #JobMeAgency #Success`;
   const twitter = logPost('twitter', content);
   const linkedin = logPost('linkedin', content);
   res.json({ success: true, twitter, linkedin });

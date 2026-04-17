@@ -19,7 +19,7 @@ app.post('/send-welcome', async (req, res) => {
     const msg = {
       to: vaEmail,
       from: process.env.FROM_EMAIL,
-      subject: 'Welcome to Ignite Agency Platform',
+      subject: 'Welcome to JobMe Agency Platform',
       html: `
         <h1>Welcome ${vaName}!</h1>
         <p>You've been successfully onboarded to our platform.</p>

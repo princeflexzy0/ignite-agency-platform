@@ -1,5 +1,5 @@
 {
-  "name": "ignite-agency-platform",
+  "name": "jobme-agency-platform",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/princeflexzy0/ignite-agency-platform.git"
+    "url": "git+https://github.com/princeflexzy0/jobme-agency-platform.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/princeflexzy0/ignite-agency-platform/issues"
+    "url": "https://github.com/princeflexzy0/jobme-agency-platform/issues"
   },
-  "homepage": "https://github.com/princeflexzy0/ignite-agency-platform#readme"
+  "homepage": "https://github.com/princeflexzy0/jobme-agency-platform#readme"
 }

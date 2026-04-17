@@ -33,7 +33,7 @@ I am available to start immediately and can dedicate full attention to your proj
 Looking forward to discussing how I can help!
 
 Best regards,
-Ignite Agency VA Team
+JobMe Agency VA Team
 `.trim();
 
 app.get('/health', (req, res) => {
