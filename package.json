@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/princeflexzy0/jobme-agency-platform/issues"
   },
-  "homepage": "https://github.com/princeflexzy0/jobme-agency-platform#readme"
+  "homepage": "https://github.com/princeflexzy0/jobme-agency-platform#readme",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.103.3"
+  }
 }
